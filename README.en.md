@@ -15,6 +15,30 @@ A **harness template** that turns Figma designs into React + Tailwind components
 
 Generate components from Figma → assemble pages → pixel-accurate alignment (≤1px) → **after changing a shared component, automatically run regression on affected pages**. Ships with `ExampleButton` + `ExamplePage`; `npm run dev` / `test:visual` / `/visual-regression` run out of the box.
 
+## Workflow: What You Do vs What the AI Loops On
+
+This harness's defining trait: **visual alignment is a loop the AI runs autonomously**, not a one-shot generation. After you describe a task, the AI cycles through "generate / edit code → screenshot visual check → edit again" on its own until ≤1px or stop-loss — you don't babysit each round.
+
+```
+You (engineer)                  AI (Claude Code)
+──────────                      ────────────────
+describe a task ──────────────▶ pull spec from Figma, generate code
+"build X / align to ≤1px"              │
+                                       ▼
+                        ┌──▶ screenshot ↔ design visual check
+                        │           │
+                        │      diff > 1px?
+                        │      ├─ yes → edit code ──┘   ← autonomous loop, you stay out
+                        │      └─ no  → converged
+                        │      (no convergence after N rounds → stop-loss to known-diffs.md)
+                        ▼
+review result ◀──────────── reports "✅ done / ⚠️ stop-loss, needs human"
+```
+
+- **You**: describe the task + review at the end. You don't watch every round.
+- **AI**: owns the inner "generate → visual check → edit" loop; reports back only when it hits ≤1px or the escape valve (max rounds per breakpoint).
+- For a **shared component**, the AI loops one level wider: look up the dependency map → run regression on affected pages (`/visual-regression`).
+
 ## Quick Start
 
 ### Prerequisites

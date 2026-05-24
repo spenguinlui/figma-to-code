@@ -47,6 +47,27 @@ function PageOverview({ go }) {
         </div>
       </div>
 
+      <h2 id="loop">工作流程:你 vs AI 的迴圈</h2>
+      <p>這個 harness 最大的特點:<strong>視覺對齊是 AI 自動跑的迴圈</strong>,不是一次性生成。你描述任務後,AI 自己在「生成 → 截圖視覺檢查 → 再改」之間循環,到 ≤1px 或停損才回報——你不用逐輪盯。</p>
+      <CodeBlock file="human ↔ AI loop" lang="ascii">{
+`<span class="tok-c">你(工程師)                     AI(Claude Code)</span>
+描述任務 ────────────────────▶ 從 Figma 取規格、生成 code
+<span class="tok-c">「做 X / 對齊到 ≤1px」</span>                 │
+                                     ▼
+                       ┌──▶ 截圖 ↔ 設計稿 視覺檢查
+                       │      差異 &gt; 1px?
+                       │      ├─ 是 → 改 code ──┘   <span class="tok-c">← 自動循環,你不介入</span>
+                       │      └─ 否 → 收斂完成
+                       │      <span class="tok-c">(N 輪不收斂 → 停損記 known-diffs)</span>
+                       ▼
+驗收結果 ◀──────────────── 回報「✅ 完成 / ⚠️ 停損待人工」`
+      }</CodeBlock>
+      <ul>
+        <li><strong>你</strong>:描述任務 + 最後驗收,<strong>不在迴圈裡逐輪盯</strong>。</li>
+        <li><strong>AI</strong>:擁有內層「生成 → 視覺檢查 → 改」迴圈,到 ≤1px 或撞逃生閥(每斷點上限輪數)才回報。</li>
+        <li>改<strong>共用元件</strong>時 AI 再往外擴一圈:查依賴表 → 回歸驗證受影響頁。</li>
+      </ul>
+
       <h2 id="reading-order">建議閱讀順序</h2>
       <ol>
         <li><a onClick={() => go('quickstart')}>快速開始</a>——把專案跑起來</li>
@@ -565,7 +586,7 @@ function PageTroubleshoot({ go }) {
 // page TOC entries (manual for sidebar TOC rendering)
 // ============================================================
 const PAGE_TOC = {
-  overview:     [['what-it-does', '能做什麼'], ['reading-order', '建議閱讀順序']],
+  overview:     [['what-it-does', '能做什麼'], ['loop', '工作流程迴圈'], ['reading-order', '建議閱讀順序']],
   quickstart:   [['prereq', '自己要裝'], ['first-run', '第一次啟動'], ['next', '下一步']],
   access:       [['must-have', '必須拿到的存取權'], ['env-vars', '.env 參數']],
   usage:        [['common', '常見任務'], ['dataflow', '資料流'], ['boundaries', '不做什麼']],
