@@ -1,0 +1,13 @@
+{
+  "_comment": "Figma node ID 對應表。loop 讀此檔不打 API。fileKey / canvasNodeId 從 .env 讀（FIGMA_FILE_KEY / FIGMA_CANVAS_NODE_ID）。fork 後在 components 填入你各元件的 Figma 節點 ID（用 scripts/cache-figma-nodes.mjs 抓）。",
+  "_fileKey": "(見 .env FIGMA_FILE_KEY)",
+  "_canvasNodeId": "(見 .env FIGMA_CANVAS_NODE_ID)",
+  "components": {
+    "components/example/ExampleButton.tsx": {
+      "desktop": null,
+      "tablet": null,
+      "mobile": null,
+      "_note": "範例元件，無對應 Figma 節點"
+    }
+  }
+}

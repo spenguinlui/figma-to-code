@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — mirrors config/tokens.ts.
+ * Use as Tailwind utilities, e.g. bg-brand-yellow, text-ink, font-sans.
+ * 動態值（PropertyControls）走 inline style，不要拼動態 className。
+ * fork 後換成你自己的 token。
+ */
+@theme {
+    --font-sans: "Montserrat", "Noto Sans TC", sans-serif;
+
+    --color-brand-yellow: #FFD900;
+    --color-brand-green: #B6D56A;
+    --color-ink: #414040;
+    --color-gray: #9E9E9F;
+}

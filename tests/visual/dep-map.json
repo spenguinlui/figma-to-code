@@ -1,0 +1,13 @@
+{
+  "components": {
+    "ExampleButton": [
+      "example"
+    ]
+  },
+  "pages": {
+    "example": [
+      "ExampleButton"
+    ]
+  },
+  "orphans": []
+}

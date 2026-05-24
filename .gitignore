@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.env
+.DS_Store
+.vite/
+*.log
+
+# Figma REST API cache
+.figma-cache/
+
+# Claude Code local state
+.claude/scheduled_tasks.lock
+
+# 視覺回歸暫存（每次跑覆蓋；baseline/ 與 specs/ 仍入版控）
+tests/visual/current/
+tests/visual/diff/
